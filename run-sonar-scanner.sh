@@ -9,6 +9,10 @@ else
 fi
 
 scanner_args=()
+if [[ ${SONARCLOUD_URL} ]]; then
+  scanner_args+=("-Dsonar.scanner.sonarcloudUrl=${SONARCLOUD_URL}")
+fi
+
 if [[ "$RUNNER_DEBUG" == '1' ]]; then
   scanner_args+=('--debug')
 fi
