@@ -376,6 +376,42 @@ jobs:
       - name: Assert failure of previous step
         if: steps.runTest.outcome == 'success'
         run: exit 1
+  curlPerformsRedirectAndUrlIsEscaped:
+    name: >
+      curl performs redirect when scannerBinariesUrl returns 3xx
+    runs-on: ubuntu-latest
+    services:
+      https-proxy:
+        image: nginx
+        ports:
+          - 8080:8080
+        volumes:
+          - .github/qa-nginx-redirecting/nginx.conf:/etc/nginx/nginx.conf:ro
+        options: >-
+          --health-cmd "curl --fail localhost:8080/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Remove wget
+        run: sudo apt-get remove -y wget
+      - name: Start nginx and SonarQube via Docker Compose
+        run: docker compose up -d --wait
+        working-directory: .github/qa-nginx-redirecting
+      - name: Run action with scannerBinariesUrl
+        id: runTest
+        uses: ./
+        with:
+          scannerBinariesUrl: http://localhost:8080/clientRedirectToSonarBinaries
+        env:
+          SONAR_HOST_URL: http://not_actually_used
+          SONAR_SCANNER_JSON_PARAMS: '{"sonar.scanner.internal.dumpToFile": "./output1.properties"}'
+      - name: Assert Sonar Scanner CLI was downloaded
+        run: |
+          ./test/assertFileExists "$RUNNER_TEMP/sonarscanner/sonar-scanner-cli-6.2.1.4610-linux-x64.zip"
   useSslCertificate:
     name: >
       'SONAR_ROOT_CERT' is converted to truststore
