@@ -1,0 +1,16 @@
+name: Echo Action
+description: >
+  Just an echo
+branding:
+  icon: check
+  color: green
+inputs:
+  message:
+    description: what to echo
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Echo
+      run: echo "${{ inputs.message }}"
+      shell: bash
