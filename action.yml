@@ -23,7 +23,7 @@ runs:
   using: "composite"
   steps:
     - name: Echo
-      run: ./other_action
+      uses: ./other_action
       with:
         message: "The msg"
     - name: Sanity checks
