@@ -24,10 +24,10 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v4
-        with:
-          repository: ${{ github.action_repository }}
-          ref: ${{ github.action_ref }}
-          path: ./actions
+      with:
+        repository: ${{ github.action_repository }}
+        ref: ${{ github.action_ref }}
+        path: ./actions
     - uses: ./actions/sanity-checks
       with:
         projectBaseDir: ${{ inputs.projectBaseDir }}
