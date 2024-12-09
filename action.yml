@@ -22,6 +22,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Echo
+      run: ./other_action
+      with:
+        message: "The msg"
     - name: Sanity checks
       run: ${GITHUB_ACTION_PATH}/sanity-checks.sh
       shell: bash
