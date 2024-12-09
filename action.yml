@@ -23,11 +23,13 @@ runs:
   using: "composite"
   steps:
     - name: Echo
-      uses: ${GITHUB_ACTION_PATH}/other_action
+      uses: ./other_action
       with:
         message: "The msg"
     - name: Sanity checks
-      run: ${GITHUB_ACTION_PATH}/sanity-checks.sh
+      run: |
+        echo "$GITHUB_ACTION_PATH"
+        ${GITHUB_ACTION_PATH}/sanity-checks.sh
       shell: bash
       env:
         INPUT_PROJECTBASEDIR: ${{ inputs.projectBaseDir }}
