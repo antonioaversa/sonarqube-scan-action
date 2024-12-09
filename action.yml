@@ -24,7 +24,8 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v4
-      path: ./actions
+      with:
+        path: ./actions
     - uses: ./actions/sanity-checks
       with:
         projectBaseDir: ${{ inputs.projectBaseDir }}
