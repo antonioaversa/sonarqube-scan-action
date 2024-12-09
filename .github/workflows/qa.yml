@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - antonio/split-for-cpp
   pull_request:
     types: [opened, synchronize, reopened]
 
