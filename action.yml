@@ -29,7 +29,7 @@ runs:
       shell: bash
     - uses: actions/checkout@v4
       with:
-        repository: ${{ env.A }
+        repository: ${{ env.A }}
         ref: ${{ env.B }}
         path: ./actions
     - uses: ./actions/sanity-checks
