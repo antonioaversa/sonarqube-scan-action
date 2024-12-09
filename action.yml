@@ -23,7 +23,7 @@ runs:
   using: "composite"
   steps:
     - name: Echo
-      uses: ./other_action
+      uses: ${GITHUB_ACTION_PATH}/other_action
       with:
         message: "The msg"
     - name: Sanity checks
