@@ -23,10 +23,13 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - run: | 
+        echo "A=${{ github.action_ref }}" >> $GITHUB_ENV
+        echo "B=${{ github.action_ref }}" >> $GITHUB_ENV
     - uses: actions/checkout@v4
       with:
-        repository: ${{ github.action_repository }}
-        ref: ${{ github.action_ref }}
+        repository: ${{ env.A }
+        ref: ${{ env.B }}
         path: ./actions
     - uses: ./actions/sanity-checks
       with:
