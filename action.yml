@@ -24,8 +24,8 @@ runs:
   using: "composite"
   steps:
     - run: | 
-        echo "A=${{ github.action_ref }}" >> $GITHUB_ENV
-        echo "B=${{ github.action_ref }}" >> $GITHUB_ENV
+        echo "A=$GITHUB_ACTION_REPOSITORY" >> $GITHUB_ENV
+        echo "B=$GITHUB_ACTION_REF" >> $GITHUB_ENV
       shell: bash
     - uses: actions/checkout@v4
       with:
