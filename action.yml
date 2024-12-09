@@ -23,14 +23,19 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: ./sanity-checks
+    - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.action_repository }}
+          ref: ${{ github.action_ref }}
+          path: ./actions
+    - uses: ./actions/sanity-checks
       with:
         projectBaseDir: ${{ inputs.projectBaseDir }}
-    - uses: ./install-sonar-scanner
+    - uses: ./actions/install-sonar-scanner
       with:
         scannerVersion: ${{ inputs.scannerVersion }}
         scannerBinariesUrl: ${{ inputs.scannerBinariesUrl }}
-    - uses: ./run-sonar-scanner
+    - uses: ./actions/run-sonar-scanner
       with:
         args: ${{ inputs.args }}
         projectBaseDir: ${{ inputs.projectBaseDir }}
