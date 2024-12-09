@@ -26,6 +26,7 @@ runs:
     - run: | 
         echo "A=${{ github.action_ref }}" >> $GITHUB_ENV
         echo "B=${{ github.action_ref }}" >> $GITHUB_ENV
+      shell: bash
     - uses: actions/checkout@v4
       with:
         repository: ${{ env.A }
